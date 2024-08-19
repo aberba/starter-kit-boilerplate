@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
+import type { NextRequest, NextResponse } from "next/server";
 
 export type NextFunction = () => void;
 
 export type Middleware = (
-	request: Request,
+	request: NextRequest,
 	next: NextFunction
 ) => Promise<NextResponse | void>;
 
 export const handler =
 	(...middleware: Middleware[]) =>
-	async (request: Request) => {
+	async (request: NextRequest) => {
 		let result;
 
 		for (let i = 0; i < middleware.length; i++) {
